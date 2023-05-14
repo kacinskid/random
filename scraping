@@ -16,18 +16,18 @@ def get_data(url):
 		item={}
 
 		item["Name"] = player.find("td", 
-									class_="person-name")
+					class_="person-name")
 		item["Verein"] = player.find("td", 
-									class_="team-name")
+					class_="team-name")
 
 		item["Minuten"] = player.find("td", 
-									class_="person_stats-playing_minutes person_stats-playing_minutes-list")
+					class_="person_stats-playing_minutes person_stats-playing_minutes-list")
 
 		item["Ballkontakte pro Minute"] = player.find("td", 
-									class_="person_stats-balls_touched_per_minute")
+					class_="person_stats-balls_touched_per_minute")
 
 		item["Summe Ballkontakte"] = player.find("td", 
-									class_="person_stats-balls_touched person_stats-balls_touched-list")
+					class_="person_stats-balls_touched person_stats-balls_touched-list")
 									
 		
 		data.append(item)
@@ -44,4 +44,3 @@ if __name__ == "__main__":
  export_data(data)
  print("done")
 
-#Liste mit allen Objekten und Code anstatt Namen
