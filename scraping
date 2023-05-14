@@ -1,0 +1,47 @@
+from bs4 import BeautifulSoup
+import requests
+import pandas as pd
+
+def get_data(url):
+	response = requests.get(url)
+	soup = BeautifulSoup(response.text,
+							"lxml")
+
+	players = soup.find("table", 
+						class_="module-statistics statistics")
+
+	data=[]
+
+	for player in players:
+		item={}
+
+		item["Name"] = player.find("td", 
+									class_="person-name")
+		item["Verein"] = player.find("td", 
+									class_="team-name")
+
+		item["Minuten"] = player.find("td", 
+									class_="person_stats-playing_minutes person_stats-playing_minutes-list")
+
+		item["Ballkontakte pro Minute"] = player.find("td", 
+									class_="person_stats-balls_touched_per_minute")
+
+		item["Summe Ballkontakte"] = player.find("td", 
+									class_="person_stats-balls_touched person_stats-balls_touched-list")
+									
+		
+		data.append(item)
+
+	return data
+
+def export_data(data):
+	df = pd.DataFrame(data)
+	df.to_excel("Spieler.xlsx")
+	
+
+if __name__ == "__main__":
+ data = get_data("https://sportdaten.spiegel.de/fussball/bundesliga/ma9417803/fc-augsburg_eintracht-frankfurt/spielstatistik-ballkontakte/")
+ export_data(data)
+ print("done")
+
+#Liste mit allen Objekten und Code anstatt Namen
