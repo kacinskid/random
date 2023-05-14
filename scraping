@@ -5,10 +5,10 @@ import pandas as pd
 def get_data(url):
 	response = requests.get(url)
 	soup = BeautifulSoup(response.text,
-							"lxml")
+				"lxml")
 
 	players = soup.find("table", 
-						class_="module-statistics statistics")
+				class_="module-statistics statistics")
 
 	data=[]
 
@@ -29,7 +29,6 @@ def get_data(url):
 		item["Summe Ballkontakte"] = player.find("td", 
 					class_="person_stats-balls_touched person_stats-balls_touched-list")
 									
-		
 		data.append(item)
 
 	return data
